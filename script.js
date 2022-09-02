@@ -1,113 +1,83 @@
 // selecting DOM elements
 const numbers = document.querySelectorAll('.numbers');
-const screen = document.querySelector('.screen');
-const display = document.getElementById('result');
+const display = document.querySelector('.screen');
 const operators = document.querySelectorAll('.operator');
 const equals = document.querySelector('.equals');
-const firstNumText = document.getElementById('firstNum');
-const secondNumText = document.getElementById('secondNum');
-const resultValue = document.getElementById('resultValue');
-
+const currentOperandText = document.getElementById('currentOperand');
+const previousOperandText = document.getElementById('previousOperand');
+const displayOperator = document.getElementById('displayOperator');
+const clear = document.getElementById('clear');
 
 
 // Variables
-let firstNumber = 0;
-let secondNumber = 0;
-let resultNumber = 0;
+let currentOperand = '';
+let previousOperand = '';
 let operateur = '';
 
 
-    // Numbers' display functions
-    numbers.forEach((number)=>{
-        number.addEventListener('click', ()=>{
-            firstNumText.textContent += number.textContent;
-            console.log(screen)
-
-
-
-        })
-    })
-
-    operators.forEach((operator)=>{
-        operator.addEventListener('click', ()=>{
-            firstNumber = parseInt(firstNumText.textContent);
-            operateur = operator.textContent;
-            const operate = function(num1, operator, num2){
-                    
-                num1 = firstNumber;
-                num2 = secondNumber;
-                operator = operateur;
-            
-            }
-
-
-                // the second number button is a local function, it works only when operator button is initiated
-
-                numbers.forEach((number)=>{
-                    number.addEventListener('click', ()=>{
-                    secondNumText.textContent += number.textContent;
-                    secondNumber = parseInt(secondNumText.textContent);
-                    firstNumText.remove();
-
-
-
-                    
-        })
-    })
-
-
-    equals.addEventListener('click', ()=>{
-
-        const operate = function(num1, operator, num2){
-    
-            num1 = firstNumber;
-            num2 = secondNumber;
-            operator = operateur;
-        
-            // operations
-            const add = function(num1, num2){
-            return num1+num2;
-            }   
-        
-            const subtract = function(num1, num2){
-            return num1-num2;
-            }
-        
-            const multiply = function(num1, num2){
-            return num1*num2;
-            }
-        
-        
-            const divide = function(num1, num2){
-            return num1/num2;
-            }
-        
-            if(operator == '+'){
-                return add(num1, num2);
-            }else if(operator == '-'){
-                return subtract(num1, num2);
-            }else if(operator == '*'){
-                return multiply(num1, num2);
-            }else if(operator == '/'){
-                return divide(num1, num2);
-            }
-        }
-        resultNumber = operate();
-    
-        secondNumText.remove()
-        resultValue.textContent = resultNumber;
-        // displaying result
-        
+numbers.forEach((number)=>{
+    number.addEventListener('click', (e)=>{
+        handleNumber(e.target.textContent);
         
     })
 })
 
+operators.forEach((operator)=>{
+    operator.addEventListener('click', (e)=>{
+        handleOperator(e.target.textContent)
+    })
 })
 
+equals.addEventListener('click', ()=>{
+    currentOperand = calculate();
+    currentOperandText.textContent = currentOperand;
+});
+
+clear.addEventListener('click', Clear)
 
 
+// functions
+function handleNumber(num){
+if(num === '.' && currentOperandText.textContent.includes('.')){
+    return;
+}
+currentOperand += num;
+currentOperandText.textContent = currentOperand;
 
+}
 
+function handleOperator(operator){
+    operateur = operator;
+    previousOperandText.textContent = currentOperandText.textContent + ' ' + operateur;
+    previousOperand = currentOperandText.textContent;
+    currentOperandText.textContent = ''
+    currentOperand = '';
+}
 
+function calculate(num1,operator,num2){
 
+    num1 = Number(previousOperand);
+    operator = operateur;
+    num2 = Number(currentOperand);
 
+    if(operator === '+'){
+        return num1 + num2;
+    }else if(operator === '-'){
+        return num1 - num2;
+    }else if(operator === '*'){
+        return num1 * num2;
+    }else if(operator === '/'){
+        return num1 / num2;
+    }
+}
+
+function Clear(){
+    previousOperandText.textContent = '';
+    currentOperandText.textContent = '';
+    currentOperand = '';
+    previousOperand = '';
+}
+
+function decimal(){
+
+}

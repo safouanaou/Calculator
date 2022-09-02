@@ -9,7 +9,6 @@ body{
 }
 
 .container{
-    border: 1px solid red;
     width: 700px;
     height: 900px;
     display: grid;
@@ -18,31 +17,65 @@ body{
 } 
 
 .screen{
-    background-color: rgb(227, 243, 209);
+    height:210px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: grid;
+    background-color: rgb(77, 68, 94);
     grid-column: span 8;
     grid-row: span 1;
 
 }
+
+
+#previousOperand{
+    display: flex;
+    font-size: 3rem;
+    justify-content:right;
+    align-items: center;
+    padding-right: 70px;
+    color: rgb(240, 215, 255);
+
+}
+
+#currentOperand{
+    display: flex;
+    font-size: 3rem;
+    justify-content:right;
+    align-items: center;
+    padding-right: 70px;
+    color: white;
+
+}
+
 
 .board{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: repeat(5, 1fr);
     grid-column: span 6;
-    grid-row: span 2 ;
-    background-color: rgb(243, 209, 209);
+    grid-row: span 200;
+    background-color: rgb(255, 255, 255);
     color: white;
     text-align: center;
+    grid-gap: 2px;
+    
     
 }
 
 .numbers{
     display: grid;
-    border: 1px solid blue;
     align-items: center;
     font-weight: 800;
     font-size: 2.5rem;
     cursor: pointer;
+    background-color: rgb(138, 112, 172);
+}
+
+.numbers-2{
+    background-color: rgb(108, 88, 135);
+
 }
 
 .numbers:hover{
@@ -52,9 +85,10 @@ body{
 .operators{
     grid-column-start: 7;
     grid-column-end: 9;
-    grid-row: span 2;
+    grid-row: span 200;
     display: grid;
-    background-color: rgb(210, 209, 243);
+    background-color: rgb(177, 175, 223);
+    
 }
 
 button{
@@ -63,8 +97,15 @@ button{
     font-size: 2.5rem;
     color: white;
     cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.2);
+
+    
 }
 
-button:hover{
-    
+.numbers:hover{
+    background-color: rgb(120, 98, 151);
+}
+
+.operator:hover{
+    background-color: rgb(152, 150, 192);
 }
