@@ -17,10 +17,7 @@ body{
 } 
 
 .screen{
-    height:210px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+    height:200px;
     display: grid;
     background-color: rgb(77, 68, 94);
     grid-column: span 8;

@@ -13,6 +13,7 @@ const clear = document.getElementById('clear');
 let currentOperand = '';
 let previousOperand = '';
 let operateur = '';
+const negative = '+/-';
 
 
 numbers.forEach((number)=>{
@@ -38,21 +39,30 @@ clear.addEventListener('click', Clear)
 
 // functions
 function handleNumber(num){
+    if(num == '+/-' && currentOperand == ''){
+        num = '-';
+    }else if(currentOperand !== '' && num == '+/-'){
+        currentOperand = `-${currentOperand}`; 
+    }
 if(num === '.' && currentOperandText.textContent.includes('.')){
     return;
 }
 currentOperand += num;
 currentOperandText.textContent = currentOperand;
-
+currentOperandText.textContent = currentOperandText.textContent.replace('+/-', '')
 }
 
 function handleOperator(operator){
+    if(currentOperand === ''){
+        return
+    }
     operateur = operator;
     previousOperandText.textContent = currentOperandText.textContent + ' ' + operateur;
     previousOperand = currentOperandText.textContent;
     currentOperandText.textContent = ''
     currentOperand = '';
 }
+
 
 function calculate(num1,operator,num2){
 
@@ -68,7 +78,10 @@ function calculate(num1,operator,num2){
         return num1 * num2;
     }else if(operator === '/'){
         return num1 / num2;
+    }else if(operator === '%'){
+        return (num1/100) * num2;
     }
+    
 }
 
 function Clear(){
@@ -78,6 +91,5 @@ function Clear(){
     previousOperand = '';
 }
 
-function decimal(){
 
-}
+
